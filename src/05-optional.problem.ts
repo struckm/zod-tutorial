@@ -3,15 +3,24 @@
 import { expect, it } from "vitest";
 import { z } from "zod";
 
+type FormType = {
+  name: string,
+  phoneNumber?: string,
+}
+
+
+
 const Form = z.object({
   name: z.string(),
-  phoneNumber: z.string(),
+  phoneNumber: z.string().optional(),
   //                     ^ 🕵️‍♂️
 });
 
+// type FormType = z.infer<typeof Form>;
+
 export const validateFormInput = (values: unknown) => {
   const parsedData = Form.parse(values);
-
+  console.log(parsedData);
   return parsedData;
 };
 
